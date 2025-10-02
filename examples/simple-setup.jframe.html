@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Working Todo App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .todo-item {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="simpleTest">
+        <h2>{{appTitle}}</h2>
+        {{#each todos}}
+        <div>{{this.text}} - {{this.completed}}</div>
+        {{/each}}
+    </div>
+
+    <script type="module">
+        import { jframe } from '../index.js';
+
+        const simpleData = {
+            appTitle: 'Simple Test',
+            todos: [
+                { text: 'Test 1', completed: true },
+                { text: 'Test 2', completed: false }
+            ]
+        };
+
+        const element = document.getElementById('simpleTest');
+        jframe.render(element, simpleData);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Templating Engine Example</title>
+</head>
+
+<body>
+  <div id="app">
+    <h2>{{appTitle}}</h2>
+    <ul>
+      {{#each users}}
+      <li>
+        <strong>{{this.name}}</strong> - {{this.email}}
+      </li>
+      {{/each}}
+    </ul>
+    <button id="refresh">Refresh</button>
+  </div>
+  <script type="module">
+    import { jframe } from '../index.js';
+
+    function blog() {
+      const container = document.getElementById('app');
+      const result = [
+        { name: 'omaine', email: 'lldkf@gmail.com' },
+        { name: 'james', email: 'lldkf@gmail.com' }
+      ]
+      const simpleData = {
+        appTitle: 'Simple Test',
+        users: result
+      };
+
+      const newUsers = {
+        appTitle: 'refreshed',
+        users: [
+          { name: 'omadine', email: 'lldkf@gmail.com' },
+          { name: 'jamedds', email: 'lldkf@gmail.com' }
+        ]
+      }
+
+      // Initial render
+      jframe.render(container, simpleData);
+
+      // Example: update context with refreshed data
+      document.getElementById('refresh').addEventListener('click', async () => {
+        jframe.update(container, newUsers);
+      });
+    }
+
+    blog();
+  </script>
+</body>
+
+</html>

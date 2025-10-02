@@ -1,0 +1,24 @@
+{
+    "liveServer.settings.port": 5501,
+    "files.associations": {
+        "*.jframe.html": "html"
+    },
+    "emmet.includeLanguages": {
+        "html": "html"
+    },
+    "editor.quickSuggestions": {
+        "strings": true,
+        "comments": true,
+        "other": true
+    },
+    "emmet.triggerExpansionOnTab": true,
+    "highlight-matching-tag.styles": {
+        "opening": {
+            "name": {
+                "jframe": {
+                    "underline": "blue"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Template Engine</title>
+</head>
+<body>
+    <h1>Template Engine Debug</h1>
+    
+    <div id="test1">
+        <p>Static content that should remain</p>
+        <p>Variable: {{testVar}}</p>
+    </div>
+
+    <div id="test2">
+        {{#if show}}This should show{{/if}}
+    </div>
+
+    <div id="test3">
+        {{#each items}}<span>{{this}}</span>{{/each}}
+    </div>
+
+    <script type="module">
+        import { jframe } from '../index.js';
+
+        console.log('🔧 Starting debug...');
+
+        // Test 1: Simple variable
+        try {
+            const test1 = document.getElementById('test1');
+            console.log('Test1 before:', test1.innerHTML);
+            jframe.render(test1, { testVar: 'SUCCESS' });
+            console.log('Test1 after:', test1.innerHTML);
+        } catch (error) {
+            console.error('Test1 failed:', error);
+        }
+
+        // Test 2: Conditional
+        try {
+            const test2 = document.getElementById('test2');
+            console.log('Test2 before:', test2.innerHTML);
+            jframe.render(test2, { show: true });
+            console.log('Test2 after:', test2.innerHTML);
+        } catch (error) {
+            console.error('Test2 failed:', error);
+        }
+
+        // Test 3: Loop
+        try {
+            const test3 = document.getElementById('test3');
+            console.log('Test3 before:', test3.innerHTML);
+            jframe.render(test3, { items: ['A', 'B', 'C'] });
+            console.log('Test3 after:', test3.innerHTML);
+        } catch (error) {
+            console.error('Test3 failed:', error);
+        }
+
+        console.log('🔧 Debug complete');
+    </script>
+</body>
+</html>

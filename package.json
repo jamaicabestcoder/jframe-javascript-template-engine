@@ -1,0 +1,28 @@
+{
+  "name": "templating-engine",
+  "version": "1.0.0",
+  "description": "A lightweight JavaScript templating engine for browser environments",
+  "type": "module",
+  "main": "index.js",
+  "keywords": [
+    "template",
+    "engine",
+    "javascript",
+    "browser",
+    "templating",
+    "frontend"
+  ],
+  "author": "Oaine Lewis",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/templating-engine"
+  },
+  "homepage": "https://github.com/your-username/templating-engine#readme",
+  "bugs": {
+    "url": "https://github.com/your-username/templating-engine#readme"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

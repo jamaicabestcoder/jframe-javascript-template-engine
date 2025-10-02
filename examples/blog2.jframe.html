@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Blog Output</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .blog-post {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .post-title {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .post-meta {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .post-content {
+            line-height: 1.6;
+        }
+
+        .tags {
+            margin-top: 15px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #e0e0e0;
+            padding: 3px 8px;
+            margin: 2px;
+            border-radius: 3px;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Simple Blog Output</h1>
+    <div id="blogOutput"></div>
+
+    <script type="module">
+        import { jframe } from '../index.js';
+
+        // Simple mock blog data
+        const mockBlogData = {
+            posts: [
+                {
+                    id: 1,
+                    title: "Getting Started with JavaScript",
+                    author: "John Doe",
+                    date: "2024-01-15",
+                    content: "This is a beginner's guide to JavaScript programming...",
+                    tags: ["javascript", "programming", "web"]
+                },
+                {
+                    id: 2,
+                    title: "CSS Tips and Tricks",
+                    author: "Jane Smith",
+                    date: "2024-01-10",
+                    content: "Learn some advanced CSS techniques to improve your designs...",
+                    tags: ["css", "design", "frontend"]
+                },
+                {
+                    id: 3,
+                    title: "Introduction to Node.js",
+                    author: "Mike Johnson",
+                    date: "2024-01-05",
+                    content: "Discover the power of server-side JavaScript with Node.js...",
+                    tags: ["nodejs", "backend", "javascript"]
+                }
+            ],
+            stats: {
+                totalPosts: 3,
+                lastUpdated: "2024-01-16"
+            }
+        };
+
+        // Template for rendering blog posts
+        const template = `
+            <div>
+                <h2>Blog Posts (Total: {{stats.totalPosts}})</h2>
+                <p><strong>Last Updated:</strong> {{stats.lastUpdated}}</p>
+                
+                {{#each posts}}
+                <div class="blog-post">
+                    <h3 class="post-title">{{this.title}}</h3>
+                    <div class="post-meta">
+                        By <strong>{{this.author}}</strong> on {{this.date}}
+                    </div>
+                    <div class="post-content">
+                        {{this.content}}
+                    </div>
+                    <div class="tags">
+                        {{#each this.tags}}
+                        <span class="tag">{{this}}</span>
+                        {{/each}}
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        `;
+        jframe.render(template, mockBlogData, false);
+        const html = jframe.render(template,mockBlogData);
+        document.getElementById('blogOutput').innerHTML = html;
+    </script>
+</body>
+
+</html>

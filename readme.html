@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jframe Templating Engine - Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #4a5568;
+            font-size: 3rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: #718096;
+            margin-bottom: 20px;
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .badge {
+            background: #edf2f7;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #4a5568;
+            font-weight: 500;
+        }
+
+        .badge.highlight {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #4a5568;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #e2e8f0;
+            font-size: 1.8rem;
+        }
+
+        h3 {
+            color: #4a5568;
+            margin: 25px 0 15px 0;
+            font-size: 1.3rem;
+        }
+
+        h4 {
+            color: #4a5568;
+            margin: 20px 0 10px 0;
+            font-size: 1.1rem;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #4a5568;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .code-comment {
+            color: #a0aec0;
+            font-style: italic;
+        }
+
+        .code-keyword {
+            color: #f56565;
+        }
+
+        .code-string {
+            color: #68d391;
+        }
+
+        .code-function {
+            color: #63b3ed;
+        }
+
+        .code-variable {
+            color: #f6e05e;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 10px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 12px 15px;
+            background: #f7fafc;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .nav-link:hover {
+            background: #edf2f7;
+            border-left-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .example-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .example-card {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .syntax-highlight {
+            background: #fff5f5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #c53030;
+            font-weight: bold;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin: 15px 0;
+        }
+
+        .feature-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #48bb78;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th,
+        td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: #f7fafc;
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        tr:hover {
+            background: #f7fafc;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: white;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .example-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Jframe Templating Engine</h1>
+            <p class="tagline">A lightweight JavaScript templating engine with powerful features</p>
+            <div class="badges">
+                <div class="badge highlight">Two-Way Data Binding</div>
+                <div class="badge">Conditional Rendering</div>
+                <div class="badge">List Iteration</div>
+                <div class="badge">HTML Escaping</div>
+                <div class="badge">DOM Updates</div>
+            </div>
+        </header>
+
+        <div class="content-grid">
+            <div class="main-content">
+                <section class="card">
+                    <h2>Overview</h2>
+                    <p>Jframe is a lightweight JavaScript templating engine that provides powerful template rendering
+                        capabilities with two-way data binding support.</p>
+
+                    <ul class="feature-list">
+                        <li><strong>Template compilation</strong> and rendering</li>
+                        <li><strong>Two-way data binding</strong> for form elements</li>
+                        <li><strong>Conditional rendering</strong> with <span class="syntax-highlight">{{#if}}</span>
+                        </li>
+                        <li><strong>List rendering</strong> with <span class="syntax-highlight">{{#each}}</span></li>
+                        <li><strong>HTML escaping</strong> for security</li>
+                        <li><strong>Complex expressions</strong> and method calls</li>
+                        <li><strong>DOM element rendering</strong> and updates</li>
+                    </ul>
+                </section>
+
+                <section class="card">
+                    <h2>Installation & Setup</h2>
+                    <div class="code-block">
+                        <span class="code-comment">// Import the main instance</span><br>
+                        <span class="code-keyword">import</span> { jframe } <span class="code-keyword">from</span> <span
+                            class="code-string">'./jframe/index.js'</span>;<br><br>
+
+                        <span class="code-comment">// Or create your own instance</span><br>
+                        <span class="code-keyword">import</span> { Jframe } <span class="code-keyword">from</span> <span
+                            class="code-string">'./jframe/index.js'</span>;<br>
+                        <span class="code-keyword">const</span> engine = <span class="code-keyword">new</span> <span
+                            class="code-function">Jframe</span>();
+                    </div>
+                </section>
+
+                <section class="card">
+                    <h2>Basic Usage</h2>
+
+                    <h3>1. Simple Template Rendering</h3>
+                    <div class="code-block">
+                        <span class="code-comment">// Render template string to HTML</span><br>
+                        <span class="code-keyword">const</span> template = <span class="code-string">'&lt;h1&gt;Hello {{
+                            name }}!&lt;/h1&gt;'</span>;<br>
+                        <span class="code-keyword">const</span> context = { name: <span
+                            class="code-string">'World'</span> };<br>
+                        <span class="code-keyword">const</span> html = jframe.<span
+                            class="code-function">render</span>(template, context);<br>
+                        <span class="code-keyword"></span>document.<span  class="code-function">getElementById</span>(<span class="code-string">"app"</span>).innerHTML = html;<br>
+
+                        <span class="code-comment">// Result: '&lt;h1&gt;Hello World!&lt;/h1&gt;'</span>
+                    </div>
+
+                    <h3>2. DOM Element Rendering</h3>
+                    <div class="example-grid">
+                        <div class="example-card">
+                            <h4>HTML</h4>
+                            <div class="code-block">
+                                &lt;div id=<span class="code-string">"app"</span>&gt;<br>
+                                &nbsp;&nbsp;&lt;p&gt;Hello {{ user.name }}!&lt;/p&gt;<br>
+                                &nbsp;&nbsp;&lt;p&gt;You have {{ notifications.length }} notifications&lt;/p&gt;<br>
+                                &lt;/div&gt;
+                            </div>
+                        </div>
+                        <div class="example-card">
+                            <h4>JavaScript</h4>
+                            <div class="code-block">
+                                <span class="code-keyword">const</span> element = document.<span
+                                    class="code-function">getElementById</span>(<span
+                                    class="code-string">'app'</span>);<br>
+                                <span class="code-keyword">const</span> context = {<br>
+                                &nbsp;&nbsp;user: { name: <span class="code-string">'Alice'</span> },<br>
+                                &nbsp;&nbsp;notifications: [<span class="code-comment">/*...*/</span>]<br>
+                                };<br><br>
+                                <span class="code-comment">// Render to DOM element</span><br>
+                                jframe.<span class="code-function">render</span>(element, context);
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="card">
+                    <h2>Template Syntax</h2>
+
+                    <h3>1. Variables</h3>
+                    <p><strong>Escaped Output (safe)</strong></p>
+                    <div class="code-block">
+                        &lt;p&gt;{{ title }}&lt;/p&gt;<br>
+                        &lt;p&gt;{{ user.profile.name }}&lt;/p&gt;
+                    </div>
+
+                    <p><strong>Raw Output (unsafe - use with caution)</strong></p>
+                    <div class="code-block">
+                        &lt;div&gt;{{{ htmlContent }}}&lt;/div&gt;
+                    </div>
+
+                    <h3>2. Conditionals</h3>
+                    <div class="code-block">
+                        {{#if user.isLoggedIn}}<br>
+                        &nbsp;&nbsp;&lt;p&gt;Welcome back, {{ user.name }}!&lt;/p&gt;<br>
+                        {{/if}}<br><br>
+
+                        {{#if (eq user.role <span class="code-string">"admin"</span>)}}<br>
+                        &nbsp;&nbsp;&lt;button&gt;Admin Panel&lt;/button&gt;<br>
+                        {{/if}}
+                    </div>
+
+                    <h4>Comparison Operators:</h4>
+                    <table>
+                        <tr>
+                            <th>Operator</th>
+                            <th>Description</th>
+                            <th>Example</th>
+                        </tr>
+                        <tr>
+                            <td><code>(eq a b)</code></td>
+                            <td>equals (a === b)</td>
+                            <td><code>(eq user.role "admin")</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>(neq a b)</code></td>
+                            <td>not equals (a !== b)</td>
+                            <td><code>(neq status "pending")</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>(gt a b)</code></td>
+                            <td>greater than (a > b)</td>
+                            <td><code>(gt user.age 18)</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>(gte a b)</code></td>
+                            <td>greater than or equal (a >= b)</td>
+                            <td><code>(gte score 100)</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>(lt a b)</code></td>
+                            <td>less than (a < b)</td>
+                            <td><code>(lt items.length 10)</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>(lte a b)</code></td>
+                            <td>less than or equal (a <= b)</td>
+                            <td><code>(lte count max)</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>(and a b)</code></td>
+                            <td>logical AND (a && b)</td>
+                            <td><code>(and isActive isVerified)</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>(or a b)</code></td>
+                            <td>logical OR (a || b)</td>
+                            <td><code>(or isAdmin isModerator)</code></td>
+                        </tr>
+                    </table>
+
+                    <h3>3. Loops</h3>
+                    <div class="code-block">
+                        &lt;ul&gt;<br>
+                        &nbsp;&nbsp;{{#each items}}<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;{{ this.name }} - Index: {{ @index }}&lt;/li&gt;<br>
+                        &nbsp;&nbsp;{{/each}}<br>
+                        &lt;/ul&gt;<br><br>
+
+                        <span class="code-comment">&lt;!-- With complex expressions --&gt;</span><br>
+                        {{#each users.filter(u => u.active)}}<br>
+                        &nbsp;&nbsp;&lt;div&gt;{{ this.name.toUpperCase() }}&lt;/div&gt;<br>
+                        {{/each}}
+                    </div>
+
+                    <p><strong>Loop Context:</strong></p>
+                    <ul class="feature-list">
+                        <li><code>this</code> - current item in iteration</li>
+                        <li><code>@index</code> - current index (0-based)</li>
+                    </ul>
+
+                    <h3>4. Complex Expressions</h3>
+                    <div class="code-block">
+                        <span class="code-comment">&lt;!-- Method calls --&gt;</span><br>
+                        &lt;p&gt;{{ message.toUpperCase() }}&lt;/p&gt;<br><br>
+
+                        <span class="code-comment">&lt;!-- Arithmetic --&gt;</span><br>
+                        &lt;p&gt;Total: {{ price * quantity }}&lt;/p&gt;<br><br>
+
+                        <span class="code-comment">&lt;!-- Array operations --&gt;</span><br>
+                        &lt;p&gt;Count: {{ items.length }}&lt;/p&gt;<br>
+                        &lt;p&gt;First: {{ items[0].name }}&lt;/p&gt;<br><br>
+
+                        <span class="code-comment">&lt;!-- String operations --&gt;</span><br>
+                        &lt;p&gt;{{ title.slice(0, 10) }}...&lt;/p&gt;<br><br>
+
+                        <span class="code-comment">&lt;!-- Arrow functions --&gt;</span><br>
+                        {{#each items.filter(item => item.price > 100)}}<br>
+                        &nbsp;&nbsp;&lt;div&gt;{{ this.name }}&lt;/div&gt;<br>
+                        {{/each}}
+                    </div>
+                </section>
+
+                <section class="card">
+                    <h2>Two-Way Data Binding</h2>
+
+                    <h3>Setup</h3>
+                    <div class="code-block">
+                        <span class="code-comment">// Enable binding when rendering</span><br>
+                        <span class="code-keyword">const</span> element = document.<span
+                            class="code-function">getElementById</span>(<span class="code-string">'app'</span>);<br>
+                        jframe.<span class="code-function">render</span>(element, context, <span
+                            class="code-keyword">true</span>); <span class="code-comment">// Third parameter enables
+                            binding</span>
+                    </div>
+
+                    <h3>Usage in Templates</h3>
+                    <div class="code-block">
+                        &lt;form&gt;<br>
+                        &nbsp;&nbsp;<span class="code-comment">&lt;!-- Text inputs --&gt;</span><br>
+                        &nbsp;&nbsp;&lt;input type=<span class="code-string">"text"</span> data-bind=<span
+                            class="code-string">"user.name"</span> placeholder=<span
+                            class="code-string">"Name"</span>&gt;<br>
+                        &nbsp;&nbsp;<br>
+                        &nbsp;&nbsp;<span class="code-comment">&lt;!-- Checkboxes --&gt;</span><br>
+                        &nbsp;&nbsp;&lt;input type=<span class="code-string">"checkbox"</span> data-bind=<span
+                            class="code-string">"user.subscribed"</span>&gt; Subscribe<br>
+                        &nbsp;&nbsp;<br>
+                        &nbsp;&nbsp;<span class="code-comment">&lt;!-- Textareas --&gt;</span><br>
+                        &nbsp;&nbsp;&lt;textarea data-bind=<span
+                            class="code-string">"user.bio"</span>&gt;&lt;/textarea&gt;<br>
+                        &nbsp;&nbsp;<br>
+                        &nbsp;&nbsp;<span class="code-comment">&lt;!-- Select --&gt;</span><br>
+                        &nbsp;&nbsp;&lt;select data-bind=<span class="code-string">"user.country"</span>&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=<span
+                            class="code-string">"us"</span>&gt;US&lt;/option&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=<span
+                            class="code-string">"uk"</span>&gt;UK&lt;/option&gt;<br>
+                        &nbsp;&nbsp;&lt;/select&gt;<br>
+                        &lt;/form&gt;<br><br>
+
+                        <span class="code-comment">&lt;!-- Display bound values --&gt;</span><br>
+                        &lt;p&gt;Name: {{ user.name }}&lt;/p&gt;<br>
+                        &lt;p&gt;Subscribed: {{ user.subscribed }}&lt;/p&gt;
+                    </div>
+                </section>
+
+                <section class="card">
+                    <h2>Advanced Features</h2>
+
+                    <h3>1. Updating Rendered Elements</h3>
+                    <div class="code-block">
+                        <span class="code-comment">// Initial render</span><br>
+                        <span class="code-keyword">const</span> element = document.<span
+                            class="code-function">getElementById</span>(<span class="code-string">'app'</span>);<br>
+                        jframe.<span class="code-function">render</span>(element, initialContext);<br><br>
+
+                        <span class="code-comment">// Update with new data</span><br>
+                        jframe.<span class="code-function">update</span>(element, { <br>
+                        &nbsp;&nbsp;user: { name: <span class="code-string">'Updated Name'</span> } <br>
+                        });
+                    </div>
+
+                    <!-- <h3>2. Manual Compilation</h3>
+                    <div class="code-block">
+                        <span class="code-comment">// Compile once, render multiple times</span><br>
+                        <span class="code-keyword">const</span> template = <span class="code-string">'Hello {{ name
+                            }}!'</span>;<br>
+                        <span class="code-keyword">const</span> compiled = jframe.<span
+                            class="code-function">compile</span>(template);<br><br>
+
+                        <span class="code-comment">// Reuse compiled template</span><br>
+                        <span class="code-keyword">const</span> html1 = jframe.<span
+                            class="code-function">render</span>(compiled, { name: <span
+                            class="code-string">'Alice'</span> });<br>
+                        <span class="code-keyword">const</span> html2 = jframe.<span
+                            class="code-function">render</span>(compiled, { name: <span class="code-string">'Bob'</span>
+                        });
+                    </div> -->
+                </section>
+
+                <section class="card">
+                    <h2>Best Practices</h2>
+
+                    <h3>1. Security</h3>
+                    <div class="code-block">
+                        <span class="code-comment">&lt;!-- ✅ Safe - automatically escaped --&gt;</span><br>
+                        &lt;p&gt;{{ userInput }}&lt;/p&gt;<br><br>
+
+                        <span class="code-comment">&lt;!-- ❌ Dangerous - only use with trusted content --&gt;</span><br>
+                        &lt;div&gt;{{{ rawHtml }}}&lt;/div&gt;
+                    </div>
+
+                    <!-- <h3>2. Performance</h3>
+                    <div class="code-block">
+                        <span class="code-comment">// ✅ Compile once, render many times</span><br>
+                        <span class="code-keyword">const</span> compiled = jframe.<span
+                            class="code-function">compile</span>(template);<br>
+                        <span class="code-keyword">const</span> html1 = jframe.<span
+                            class="code-function">render</span>(compiled, data1);<br>
+                        <span class="code-keyword">const</span> html2 = jframe.<span
+                            class="code-function">render</span>(compiled, data2);<br><br>
+
+                        <span class="code-comment">// ❌ Don't recompile the same template repeatedly</span>
+                    </div> -->
+
+                    <h3>3. Error Handling</h3>
+                    <div class="code-block">
+                        <span class="code-keyword">try</span> {<br>
+                        &nbsp;&nbsp;<span class="code-keyword">const</span> html = jframe.<span
+                            class="code-function">render</span>(template, context);<br>
+                        } <span class="code-keyword">catch</span> (error) {<br>
+                        &nbsp;&nbsp;console.<span class="code-function">error</span>(<span class="code-string">'Template
+                            error:'</span>, error.message);<br>
+                        }<br><br>
+
+                        <span class="code-keyword">try</span> {<br>
+                        &nbsp;&nbsp;jframe.<span class="code-function">update</span>(element, newContext);<br>
+                        } <span class="code-keyword">catch</span> (error) {<br>
+                        &nbsp;&nbsp;console.<span class="code-function">error</span>(<span class="code-string">'Update
+                            error:'</span>, error.message);<br>
+                        }
+                    </div>
+                </section>
+            </div>
+
+            <div class="sidebar">
+                <nav>
+                    <h3>Quick Navigation</h3>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="#overview" class="nav-link">Overview</a></li>
+                        <li class="nav-item"><a href="#installation" class="nav-link">Installation & Setup</a></li>
+                        <li class="nav-item"><a href="#basic-usage" class="nav-link">Basic Usage</a></li>
+                        <li class="nav-item"><a href="#syntax" class="nav-link">Template Syntax</a></li>
+                        <li class="nav-item"><a href="#data-binding" class="nav-link">Two-Way Data Binding</a></li>
+                        <li class="nav-item"><a href="#advanced" class="nav-link">Advanced Features</a></li>
+                        <li class="nav-item"><a href="#best-practices" class="nav-link">Best Practices</a></li>
+                        <li class="nav-item"><a href="#api" class="nav-link">API Reference</a></li>
+                    </ul>
+                </nav>
+
+                <div style="margin-top: 30px;">
+                    <h3>API Reference</h3>
+                    <table>
+                        <tr>
+                            <th>Method</th>
+                            <th>Returns</th>
+                        </tr>
+                        <tr>
+                            <td><code>compile()</code></td>
+                            <td>Function</td>
+                        </tr>
+                        <tr>
+                            <td><code>render()</code></td>
+                            <td>String/Element</td>
+                        </tr>
+                        <tr>
+                            <td><code>update()</code></td>
+                            <td>HTMLElement</td>
+                        </tr>
+                        <tr>
+                            <td><code>destroy()</code></td>
+                            <td>void</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div style="margin-top: 30px;">
+                    <h3>Common Patterns</h3>
+                    <ul class="feature-list">
+                        <li>Form Validation Display</li>
+                        <li>Dynamic Class Names</li>
+                        <li>Pagination Display</li>
+                        <li>Nested Data Access</li>
+                        <li>Conditional Logic</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Jframe Templating Engine Documentation</p>
+    </footer>
+
+    <script>
+        // Add smooth scrolling for navigation links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add IDs to sections for navigation
+        document.querySelectorAll('.card h2').forEach(heading => {
+            const id = heading.textContent.toLowerCase().replace(/\s+/g, '-');
+            heading.parentElement.id = id;
+        });
+
+        // Highlight current section in navigation
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.card');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (window.pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                    link.style.borderLeftColor = '#667eea';
+                    link.style.background = '#edf2f7';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

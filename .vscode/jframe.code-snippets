@@ -1,0 +1,40 @@
+{
+  "Jframe Variable": {
+    "prefix": "jvar",
+    "body": ["{{ ${1:variable} }}"],
+    "description": "Insert Jframe variable"
+  },
+  "Jframe Raw Variable": {
+    "prefix": "jraw",
+    "body": ["{{{ ${1:variable} }}}"],
+    "description": "Insert Jframe raw variable"
+  },
+  "Jframe If Statement": {
+    "prefix": "jif",
+    "body": [
+      "{{#if ${1:condition}}}",
+      "\t${2:content}",
+      "{{/if}}"
+    ],
+    "description": "Insert Jframe if statement"
+  },
+  "Jframe Each Loop": {
+    "prefix": "jeach",
+    "body": [
+      "{{#each ${1:items}}}",
+      "\t${2:{{ this }}}",
+      "{{/each}}"
+    ],
+    "description": "Insert Jframe each loop"
+  },
+  "Jframe Data Bind": {
+    "prefix": "jbind",
+    "body": ["data-bind=\"${1:property}\""],
+    "description": "Insert data-bind attribute"
+  },
+  "Jframe Complex Condition": {
+    "prefix": "jcond",
+    "body": ["({{${1:operator}} ${2:left} ${3:right}})"],
+    "description": "Insert complex condition"
+  }
+}
