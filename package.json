@@ -16,12 +16,8 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/templating-engine"
-  },
-  "homepage": "https://github.com/your-username/templating-engine#readme",
-  "bugs": {
-    "url": "https://github.com/your-username/templating-engine#readme"
-  },
+    "url": "https://github.com/jamaicabestcoder/jframe-javascript-template-engine"
+  }
   "engines": {
     "node": ">=14.0.0"
   }
